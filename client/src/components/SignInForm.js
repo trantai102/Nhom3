@@ -9,13 +9,14 @@ const SignInForm = () => {
   const [User, setUser] = useState([]);//thông tin user được trả về tại đây
 
   const handleSignIn = () => {
-    axios.post('http://localhost:3000/account/signin',{
+    axios.post('http://localhost:3001/account/signin',{
       name: name,
       password:password    
     }
     ).then(response => {
       setUser({...response.data});
       // Xử lý dữ liệu từ API response
+      alert("Đăng nhập thành công.")
     })
     .catch(error => {
       console.error('Error:', error);     
