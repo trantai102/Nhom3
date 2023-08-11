@@ -1,12 +1,12 @@
-
+const mysql2 = require('../../config/db/mySQLConnection');
 
 class AccountController {
-    async signup(req, res, next){
-        console.log('haha');
+    async signup(req, res, next) {
+        
     }
 
-    async signin(){
-        
+    async signin() {
+
     }
 }
 
