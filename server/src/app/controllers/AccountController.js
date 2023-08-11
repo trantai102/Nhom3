@@ -8,8 +8,8 @@ class AccountController {
     async signin(identifier, password) {
     
 
-    const query = 'SELECT * FROM users WHERE (username = ? OR email = ?) AND password = ?';
-    db.query(query, [identifier, identifier, password], (err, results) => {
+    const query = 'SELECT * FROM users WHERE username = ? AND password = ?';
+    db.query(query, [identifier, password], (err, results) => {
         if (err) {
             return("Lỗi truy vấn cơ sở dữ liệu");
         }
