@@ -7,8 +7,10 @@ const route = require('./src/routes')
 app.get('/', (req, res) => {
     console.log("call API succes");
     res.send('Hello word!');
-
+    
 })
+
+route(app);
 
 app.listen(port, () => {
     console.log(`Application listenning on port ${port}`);
