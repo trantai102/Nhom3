@@ -1,8 +1,7 @@
-import logo from './logo.svg';
 import './App.css';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
-
+import SignInForm from './components/SignInForm';
 function App() {
 
   async function callAPI() {
@@ -18,15 +17,21 @@ function App() {
   }
 
   const [data, setData] = useState([]);
-  useEffect(() => {
-    // Gọi API khi component được mount
+  // useEffect(() => {
+  //   // Gọi API khi component được mount
     
-    callAPI();
+  //   callAPI();
 
-  }, [])
+  // }, [])
 
   return (
-    <div>{data}</div>
+    <div className="app">
+    <header className="app-header">
+    </header>
+    <main className="app-main">
+      <SignInForm />
+    </main>
+  </div>
   );
 }
 
