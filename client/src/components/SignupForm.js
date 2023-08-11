@@ -16,7 +16,7 @@ function SignupForm() {
         }
 
         // Gửi thông tin đăng ký lên server
-        const response = await fetch('/signup', {
+        const response = await fetch('http://localhost:3001/account/signup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
