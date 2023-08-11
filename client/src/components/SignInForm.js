@@ -5,10 +5,20 @@ const SignInForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSignIn = () => {
-    // Xử lý đăng nhập ở đây, có thể gửi thông tin đăng nhập lên máy chủ hoặc thực hiện các xử lý cần thiết
-    console.log('Email:', email);
-    console.log('Password:', password);
+  const [User, setUser] = useState([]);//thông tin user
+
+  const handleSignIn = async () => {
+    await axios.post('http://localhost:3000/account/signin',
+      email,password    
+    ).then(response => {
+      setUser({...response.data});
+      // Xử lý dữ liệu từ API response
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      // Xử lý lỗi
+    });
+    
   };
 
   return (

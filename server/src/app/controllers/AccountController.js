@@ -5,9 +5,8 @@ class AccountController {
     
     }
 
-    async signin(identifier, password) {
-    
-
+    async signin() {
+        const { identifier, password } = req.body;
     const query = 'SELECT * FROM users WHERE username = ? AND password = ?';
     db.query(query, [identifier, password], (err, results) => {
         if (err) {
