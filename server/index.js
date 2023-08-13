@@ -1,8 +1,14 @@
 const express = require('express');
-const port = 3000;
+const port = 3001;
 const app = express();
 const route = require('./src/routes')
 const mysql2 = require('./src/config/db/mySQLConnection');
+
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+
+// nếu gặp lỗi do bảo mật CORS thì mở ra
+const cors = require('cors');app.use(cors());
 
 // Kết nối tới cơ sở dữ liệu
 mysql2.connect((err) => {
