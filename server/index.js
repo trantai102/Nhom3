@@ -3,9 +3,20 @@ const port = 3001;
 const app = express();
 const route = require('./src/routes')
 const mysql2 = require('./src/config/db/mySQLConnection');
-
 const bodyParser = require('body-parser');
+var session = require('express-session')
+
+// Sử dụng middleware để xử lý dữ liệu từ form
+app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+// Sử dụng session
+app.set('trust proxy', 1) // trust first proxy
+app.use(session({
+  secret: 'qltv123',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }
+}))
 
 // nếu gặp lỗi do bảo mật CORS thì mở ra
 const cors = require('cors');app.use(cors());
