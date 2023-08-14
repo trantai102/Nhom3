@@ -79,7 +79,44 @@ class BookControllers {
   }
 
   // API book/update
-  async update(req, res) {}
+  async update(req, res) {
+    // API: http://localhost:3001/book/update/?{id}
+    const updateDataquery = `UPDATE books SET ? WHERE book_id = ?`;
+    const bookData = req.body;
+    const bookId = req.params.id;
+
+    if (!bookData) {
+        return res.status(400).json("Invalid data");
+    }
+
+    sql.connect((err) => {
+        if (err) {
+          // check SQL
+            console.log(err);
+            return res.status(500).json("Database connection error");
+        }
+
+        sql.query(
+            updateDataquery, [bookData, bookId],
+            (e, r) => {
+                if (e) {
+                  // bắt lỗi gửi lên SQL
+                    console.log(e);
+                    return res.status(500).json("Error updating book");
+                }
+                console.log("Success");
+                return res.status(200).json("Book updated successfully");
+            }
+        );
+    });
+}
+
+
+
+
+
+
+  
 
   // API book/delete
   async delete(req, res) {}
