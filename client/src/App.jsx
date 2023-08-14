@@ -1,3 +1,4 @@
+//App.jsx
 import "./App.css";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -7,7 +8,6 @@ import Header from './components/Header';
 import QLSach from './components/QLSach';
 import Home from './components/Home';
 import SignupForm from "./components/SignupForm";
-import store from './store';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Thêm biến trạng thái isLoggedIn
 

@@ -1,4 +1,4 @@
-// src/components/SignInForm.js
+// src/components/SignInForm.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
 import SignupForm from './SignupForm';
@@ -18,7 +18,7 @@ const SignInForm = ({onLogin}) => {
       })
       .then(response => {
         const result = response.data;
-        console.log(response);
+
         if (response.status == 200) {
           setUser({ name: name });
           alert('Đăng nhập thành công.');
