@@ -44,7 +44,7 @@ class AccountController {
 
     async json(req, res, next) {
         // Thực hiện truy vấn SELECT để lấy dữ liệu từ bảng users
-        connection.query('SELECT * FROM users', (err, result) => {
+        mysql2.query('SELECT * FROM users', (err, result) => {
             if (err) throw err;
     
             // Chuyển đổi kết quả truy vấn thành chuỗi JSON
