@@ -1,4 +1,4 @@
-// src/components/SignInForm.jsx
+// src/components/SignInForm.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import SignupForm from './SignupForm';
@@ -14,26 +14,21 @@ const SignInForm = () => {
   const [user, setUser] = useState(null);
 
   const handleSignIn = () => {
-    axios
-      .post('http://localhost:3001/account/signin', {
-        name: name,
-        password: password,
-      })
-      .then(response => {
-        const result = response.data;
-
-        if (response.status === 200) {
-          setUser({ name: name });
-          alert('Đăng nhập thành công.');
-          dispatch(login(user));
-        } else {
-          setError('Tên người dùng hoặc mật khẩu không đúng.');
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        setError('Đăng nhập không thành công. Vui lòng kiểm tra thông tin đăng nhập.');
-      });
+    // axios.post('http://localhost:3001/account/signin',{
+    //   name: name,
+    //   password:password    
+    // }
+    // ).then(response => {
+    //   setUser({...response.data});
+    //   // Xử lý dữ liệu từ API response
+    //   alert("Đăng nhập thành công.")
+    //   onLogin();
+    // })
+    // .catch(error => {
+    //   console.error('Error:', error);     
+    //   // Xử lý lỗi
+    // });
+    onLogin();
   };
 
   const toggleSignUpForm = () => {
