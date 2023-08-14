@@ -6,8 +6,8 @@ class AccountController {
     }
 
     async signin(req,res) {
-        const { name, password } = req.body;
-    const query = `SELECT * FROM users WHERE username = '${name}' AND password = '${password}'    ;`;
+    const { name, password } = req.body;
+    const query = `SELECT * FROM users WHERE username = '${name}' AND password = '${password}';`;
     mysql2.query(query, (err, results) => {
         if (err) {
             res.status(500).json({ message: 'Lỗi truy vấn cơ sở dữ liệu' });
