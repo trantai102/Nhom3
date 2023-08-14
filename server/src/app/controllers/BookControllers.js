@@ -89,10 +89,15 @@ class BookControllers {
             }
           );
         }
-        
       });
     }
   }
+
+  // API book/update
+  async update(req, res) {}
+
+  // API book/delete
+  async delete(req, res) {}
 }
 
 module.exports = new BookControllers();
