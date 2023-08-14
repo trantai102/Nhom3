@@ -2,8 +2,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import SignupForm from './SignupForm';
+import { useDispatch } from 'react-redux';
+import { login } from '../components/auth/authActions';
 
-const SignInForm = ({onLogin}) => {
+const SignInForm = () => {
+  const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [showSignUpForm, setShowSignUpForm] = useState(false);
@@ -19,10 +22,10 @@ const SignInForm = ({onLogin}) => {
       .then(response => {
         const result = response.data;
 
-        if (response.status == 200) {
+        if (response.status === 200) {
           setUser({ name: name });
           alert('Đăng nhập thành công.');
-          onLogin();
+          dispatch(login(user));
         } else {
           setError('Tên người dùng hoặc mật khẩu không đúng.');
         }
