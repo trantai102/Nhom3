@@ -5,30 +5,25 @@ class BookControllers {
   async create(req, res) {
     // Thực hiện hành động thêm sách vào thư viện
     const createTableQuery = `
-        CREATE TABLE IF NOT EXISTS books (
-            id INT AUTO_INCREMENT PRIMARY KEY, 
-            title VARCHAR(255) NOT NULL,
-            author VARCHAR(255) NOT NULL,
-            publication_year INT,
-            publisher VARCHAR(255),
-            category VARCHAR(100),
-            description TEXT,
-            cover_image VARCHAR(255),
-            quantity INT,
-            location VARCHAR(100),
-            status ENUM('available', 'borrowed', 'out_of_stock') DEFAULT 'available',
-            price DECIMAL(10, 2),
-            source VARCHAR(255),
-            language VARCHAR(50),
-            date_added TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            date_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-        );        
-        `;
+      CREATE TABLE IF NOT EXISTS Books (
+        book_id INT AUTO_INCREMENT PRIMARY KEY,
+        title VARCHAR(255) NOT NULL,
+        author_id INT NOT NULL,
+        publication_year INT,
+        genre VARCHAR(100),
+        quantity INT,
+        location VARCHAR(100),
+        description TEXT,
+        status ENUM('available', 'borrowed', 'out_of_stock') DEFAULT 'available',
+        date_added TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        date_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+      );    
+      `;
     const insertDataQuery = `
-        INSERT INTO books (title, author, publication_year, 
-            publisher, category, description, cover_image,
-            quantity, location, status, price, source,language) VALUES
-            (?, ?, ?, ?, ?,?,?, ?, ?, ?, ?,?, ? );
+        INSERT INTO books (title, author_id, publication_year, 
+            genre, quantity, location,
+            description, status) VALUES
+            (?, ?, ?, ?, ?, ?, ?, ? );
         `;
     const bookData = req.body;
 
@@ -46,18 +41,13 @@ class BookControllers {
     if (isConnect && bookData) {
       const {
         title,
-        author,
+        author_id,
         publication_year,
-        publisher,
-        category,
-        description,
-        cover_image,
+        genre,
         quantity,
         location,
+        description,
         status,
-        price,
-        source,
-        language,
       } = bookData;
       sql.query(createTableQuery, (e, r) => {
         if (!e) {
@@ -66,18 +56,13 @@ class BookControllers {
             insertDataQuery,
             [
               title,
-              author,
+              author_id,
               publication_year,
-              publisher,
-              category,
-              description,
-              cover_image,
+              genre,
               quantity,
               location,
+              description,
               status,
-              price,
-              source,
-              language,
             ],
             (e, r) => {
               if (e) {
