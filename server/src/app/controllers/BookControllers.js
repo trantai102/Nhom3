@@ -119,7 +119,18 @@ class BookControllers {
   
 
   // API book/delete
-  async delete(req, res) {}
+  async delete(req, res) {
+    const bookId = req.params.id;
+    const query = 'DELETE FROM books WHERE book_id = ?';
+    sql.promise().query(query, [bookId])
+      .then(() => {
+        res.status(200).send('Book deleted successfully');
+      })
+      .catch(error => {
+        res.status(500).send(error);
+        console.log(error);
+      });
+  }
 }
 
 module.exports = new BookControllers();
