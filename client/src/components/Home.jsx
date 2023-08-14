@@ -79,6 +79,7 @@ function Home() {
       setSortOrder('asc');
     }
     setSortedProducts(sorted);
+  
   };
   const containerStyle = {
     display: 'flex',
