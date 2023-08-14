@@ -1,26 +1,22 @@
-//App.jsx
-import "./App.css";
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import SignInForm from './components/SignInForm';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // Import 'Routes'
+// App.jsx
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { useSelector } from 'react-redux'; // Import useSelector
 import Header from './components/Header';
 import QLSach from './components/QLSach';
 import Home from './components/Home';
-import SignupForm from "./components/SignupForm";
+import SignInForm from './components/SignInForm'; // Import SignInForm
+
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Thêm biến trạng thái isLoggedIn
+  // Sử dụng useSelector để lấy trạng thái đăng nhập từ Redux store
+  const isLoggedIn = useSelector(state => state.isLoggedIn);
 
-  // Hàm để cập nhật trạng thái đăng nhập khi đăng nhập thành công
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-  };
-
-    return (
-      <div>
+  return (
+    <div>
 
       {/* Hiển thị SignInForm nếu chưa đăng nhập */}
-      {!isLoggedIn && <SignInForm onLogin={handleLogin} />}
+      {!isLoggedIn &&
+       <SignInForm />}
       
       {/* Hiển thị giao diện chính nếu đã đăng nhập */}
         {isLoggedIn && (
@@ -37,7 +33,8 @@ function App() {
           </div>
         )}
       </div>
-    );
-  }
+    
+  );
+}
 
 export default App;
