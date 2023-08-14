@@ -6,33 +6,41 @@ import SignupForm from './SignupForm';
 const SignInForm = ({onLogin}) => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
-  const [showSignUpForm, setShowSignUpForm] = useState(false); 
-
-  const [User, setUser] = useState([]);//thông tin user được trả về tại đây
+  const [showSignUpForm, setShowSignUpForm] = useState(false);
+  const [error, setError] = useState(null);
+  const [user, setUser] = useState(null);
 
   const handleSignIn = () => {
-    // axios.post('http://localhost:3001/account/signin',{
-    //   name: name,
-    //   password:password    
-    // }
-    // ).then(response => {
-    //   setUser({...response.data});
-    //   // Xử lý dữ liệu từ API response
-    //   alert("Đăng nhập thành công.")
-    //   onLogin();
-    // })
-    // .catch(error => {
-    //   console.error('Error:', error);     
-    //   // Xử lý lỗi
-    // });
-    onLogin();
+    axios
+      .post('http://localhost:3001/account/signin', {
+        name: name,
+        password: password,
+      })
+      .then(response => {
+        const result = response.data;
+        console.log(response);
+        if (response.status == 200) {
+          setUser({ name: name });
+          alert('Đăng nhập thành công.');
+          onLogin();
+        } else {
+          setError('Tên người dùng hoặc mật khẩu không đúng.');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        setError('Đăng nhập không thành công. Vui lòng kiểm tra thông tin đăng nhập.');
+      });
   };
+
   const toggleSignUpForm = () => {
     setShowSignUpForm(!showSignUpForm);
   };
+
   return (
     <div className="signin-form">
       <h2>Đăng nhập</h2>
+      {error && <div className="error">{error}</div>}
       <div>
         <label>Username:</label>
         <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
@@ -43,10 +51,10 @@ const SignInForm = ({onLogin}) => {
       </div>
       <button onClick={handleSignIn}>Đăng nhập</button>
       <button onClick={toggleSignUpForm}>Đăng ký</button>
-      {/* Show SignUpForm if showSignUpForm is true */}
       {showSignUpForm && <SignupForm />}
     </div>
   );
 };
+
 
 export default SignInForm;
