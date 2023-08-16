@@ -65,20 +65,26 @@ const products = [
 ];
 
 function Home() {
-
-  const [sortedProducts, setSortedProducts] = useState(products);
+  const [books, setBooks] = useState([]);
+  const [sortedBooks, setSortedBook] = useState(books);
   const [sortOrder, setSortOrder] = useState('asc'); // 'asc' cho sắp xếp tăng dần, 'desc' cho sắp xếp giảm dần
+
+  useEffect(() => {
+    fetch('http://localhost:3001/queryBook/queryBook')
+      .then(res => res.json())
+      .then(data => setBooks(data));
+  }, []);
 
   const sortProductsByPrice = () => {
     let sorted;
     if (sortOrder === 'asc') {
-      sorted = [...sortedProducts].sort((a, b) => b.price - a.price);
+      sorted = [...sortedBooks].sort((a, b) => b.price - a.price);
       setSortOrder('desc');
     } else {
-      sorted = [...sortedProducts].sort((a, b) => a.price - b.price);
+      sorted = [...sortedBooks].sort((a, b) => a.price - b.price);
       setSortOrder('asc');
     }
-    setSortedProducts(sorted);
+    setSortedBook(sorted);
   
   };
   const containerStyle = {
@@ -133,20 +139,28 @@ function Home() {
   };
 
   return (
-    <div style={containerStyle}>
-      <button style={buttonStyle} onClick={sortProductsByPrice}>
-      Sort list theo giá
-      </button>
-      {sortedProducts.map((product) => (
-        <div style={boxStyle} key={product.id}>
-          <img style={imageStyle} src={product.imageUrl} alt={product.name} />
-          <div style={infoStyle}>
-            <div style={nameStyle}>{product.name}</div>
-            <div style={priceStyle}>{product.price} đ</div>
-          </div>
-        </div>
+    // <div style={containerStyle}>
+    //   <button style={buttonStyle} onClick={sortProductsByPrice}>
+    //   Sort list theo giá
+    //   </button>
+    //   {sortedBooks.map((books) => (
+    //     <div style={boxStyle} key={books.id}>
+    //       {/* <img style={imageStyle} src={product.imageUrl} alt={product.name} /> */}
+    //       <div style={infoStyle}>
+    //         <div style={nameStyle}>{books.title}</div>
+    //         <div style={priceStyle}>{books.quantity} đ</div>
+    //       </div>
+    //     </div>
+    //   ))}
+    // </div>
+    <ul style={{ listStyleType: 'none', padding: 0 }}>
+      {books.map(book => (
+        <li key={book.id} style={{ margin: '10px 0' }}>
+          {book.title}
+          {book.author_id}
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }
 

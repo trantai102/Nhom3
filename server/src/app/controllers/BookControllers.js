@@ -131,6 +131,24 @@ class BookControllers {
         console.log(error);
       });
   }
+
+  async queryBook(req, res){
+    // // Truy vấn dữ liệu từ bảng book
+    // mysql2.query('SELECT * FROM books', function (error, results, fields) {
+    //     if (error) throw error;
+    //     res.send(results);
+    // });
+    // Thực hiện truy vấn SELECT để lấy dữ liệu từ bảng users
+    sql.query('SELECT * FROM books', (err, result) => {
+        if (err) throw err;
+
+        // Chuyển đổi kết quả truy vấn thành chuỗi JSON
+        const jsonResult = JSON.stringify(result);
+
+        // Gửi chuỗi JSON về cho client
+        res.send(jsonResult);
+    });
+}
 }
 
 module.exports = new BookControllers();
