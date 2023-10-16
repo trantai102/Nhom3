@@ -6,7 +6,7 @@ import Header from './components/Header';
 import QLSach from './components/QLSach';
 import Home from './components/Home';
 import SignInForm from './components/SignInForm'; // Import SignInForm
-
+import Test from './components/test';
 function App() {
   // Sử dụng useSelector để lấy trạng thái đăng nhập từ Redux store
   const isLoggedIn = useSelector(state => state.isLoggedIn);
@@ -14,24 +14,22 @@ function App() {
   return (
     <div>
 
-      {/* Hiển thị SignInForm nếu chưa đăng nhập */}
-      {!isLoggedIn &&
-       <SignInForm />}
       
-      {/* Hiển thị giao diện chính nếu đã đăng nhập */}
-        {isLoggedIn && (
+     
+        
           <div className="app">
-            <Header />
+           
             <main className="app-main">
               <Router>
                 <Routes>
                   <Route path="/trangchu" element={<Home />} />
                   <Route path="/quansach" element={<QLSach />} />
+                  <Route path="/test" element={<Test/>} />
                 </Routes>
               </Router>
             </main>
           </div>
-        )}
+      
       </div>
     
   );
